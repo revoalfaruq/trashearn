@@ -99,4 +99,13 @@ Trashearn introduces a **Proof-of-Good mechanism**, where positive real-world ac
 * potentially rewardable in future iterations
 
 This bridges the gap between **physical environmental impact** and **decentralized blockchain systems**.
+##Notes
+To run Node locally, please visit the official doc Portaldot website.
 
+##https://portaldot-dev.readthedocs.io/en/latest/index.html
+
+You can download the local development node here:
+**Ubuntu** → https://github.com/portaldotVolunteer/Portaldot-node/raw/main/portaldot-testnet-ubuntu.tar.gz
+**MacOS** → https://github.com/portaldotVolunteer/Portaldot-node/raw/main/portaldot-testnet-macos.tar.gz
+**Windows** → Run it via WSL: https://learn.microsoft.com/en-us/windows/wsl/
+Full repo: https://github.com/portaldotVolunteer/Portaldot-node
