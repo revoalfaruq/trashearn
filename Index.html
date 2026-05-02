@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Trashearn PortalDot</title>
+</head>
+<body>
+
+  <h1>🌱 Trashearn</h1>
+
+  <button onclick="connectWallet()">🔗 Connect Wallet</button>
+
+  <br><br>
+
+  <input id="desc" placeholder="Deskripsi sampah..." />
+  <br><br>
+
+  <button onclick="submitProof()">🚀 Submit Proof</button>
+
+  <p id="status"></p>
+
+  <script type="module">
+    import { ApiPromise, WsProvider } from "https://cdn.jsdelivr.net/npm/@polkadot/api/+esm";
+    import { web3Enable, web3Accounts, web3FromSource } from "https://cdn.jsdelivr.net/npm/@polkadot/extension-dapp/+esm";
+
+    let api;
+    let account;
+
+    // CONNECT NODE
+    async function init() {
+      const provider = new WsProvider('ws://127.0.0.1:9944');
+      api = await ApiPromise.create({ provider });
+
+      document.getElementById("status").innerText =
+        "✅ Node connected";
+    }
+
+    // CONNECT WALLET
+    async function connectWallet() {
+      try {
+        const extensions = await web3Enable('Trashearn');
+
+        if (extensions.length === 0) {
+          document.getElementById("status").innerText =
+            "❌ Wallet tidak ditemukan";
+          return;
+        }
+
+        const accounts = await web3Accounts();
+
+        if (accounts.length === 0) {
+          document.getElementById("status").innerText =
+            "❌ Tidak ada account di wallet";
+          return;
+        }
+
+        account = accounts[0];
+
+        document.getElementById("status").innerText =
+          "✅ Connected: " + account.address;
+
+      } catch (err) {
+        document.getElementById("status").innerText =
+          "❌ Error wallet: " + err.message;
+      }
+    }
+
+    // SUBMIT TRANSAKSI
+    async function submitProof() {
+      try {
+        if (!account) {
+          alert("Connect wallet dulu!");
+          return;
+        }
+
+        const desc = document.getElementById("desc").value;
+
+        if (!desc) {
+          alert("Isi deskripsi dulu!");
+          return;
+        }
+
+        const injector = await web3FromSource(account.meta.source);
+
+        const data = JSON.stringify({
+          type: "trashearn",
+          desc,
+          time: Date.now()
+        });
+
+        const tx = api.tx.system.remark(data);
+
+        document.getElementById("status").innerText =
+          "⏳ Mengirim transaksi...";
+
+        await tx.signAndSend(
+          account.address,
+          { signer: injector.signer },
+          ({ status, txHash }) => {
+
+            if (status.isInBlock) {
+              document.getElementById("status").innerText =
+                "✅ SUCCESS!\nTX HASH:\n" + txHash.toHex();
+            }
+
+            if (status.isFinalized) {
+              document.getElementById("status").innerText +=
+                "\n🎉 FINALIZED";
+            }
+          }
+        );
+
+      } catch (err) {
+        document.getElementById("status").innerText =
+          "❌ Error: " + err.message;
+      }
+    }
+
+    window.connectWallet = connectWallet;
+    window.submitProof = submitProof;
+
+    init();
+  </script>
+
+</body>
+</html>
