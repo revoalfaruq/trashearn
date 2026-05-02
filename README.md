@@ -20,7 +20,7 @@ index.html
 ## Network
 ws://127.0.0.1:9944
 ## Transaction screenshot
-
+![alt text](https://github.com/revoalfaruq/trashearn/blob/main/Folder/UI.jpg?raw=true)
 ## ⚙️ How Trashearn Works
 
 Trashearn is a simple decentralized application (dApp) built on the PortalDot network that transforms real-world environmental actions into verifiable on-chain records.
