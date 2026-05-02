@@ -11,12 +11,18 @@ A Web3 dApp built on PortalDot.
 
 ## How to Run
 
-1. Jalankan node:
-./portaldot_dev --dev --alice
+## How to Run
 
-2. Buka:
-index.html
+1. Run node:
+./portaldot_dev 
 
+2. Open index.html
+
+3. Connect wallet
+
+4. Submit proof
+   
+   Note : use Wallet Portaldot extension
 ## Network
 ws://127.0.0.1:9944
 
