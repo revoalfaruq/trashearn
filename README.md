@@ -19,6 +19,7 @@ index.html
 
 ## Network
 ws://127.0.0.1:9944
+## Transaction screenshot
 
 ## ⚙️ How Trashearn Works
 
